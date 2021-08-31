@@ -2,9 +2,9 @@ package com.mypack.pattern;
 
 public class Main {
     public static void main(String[] args) {
-//        System.out.println(validate("456564"));
-//        System.out.println(validate("4565"));
-        System.out.println(validate("aa4565"));
+//        String regex = "[a-zA-Z][a-zA-Z0-9_]{5,17}";
+        String regex = "[a-zA-Z]\\w{5,17}";
+        System.out.println("x12342314".matches(regex));
     }
 
     //6~18个字符，可以使用字母、数字、下划线，需以字母开头
