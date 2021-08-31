@@ -5,9 +5,21 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        String input = "_123_444_555_666_789";
-        String regex = "\\d{3}";
-        findAll(regex,input);
+        String input = "afooaaaaaafooa";
+        /**
+         * 贪婪就是直接把所有的吞进去，然后找到最长的，就匹配一次
+         */
+        findAll(".*foo", input);//贪婪
+        /**
+         * 这个是从刚开始慢慢往后走，有就返回了.然后，前面匹配过的就不要了，继续往后走，匹配多次
+         */
+        System.out.println();
+        findAll(".*?foo", input);//勉强
+        System.out.println();
+        /**
+         *
+         */
+        findAll(".*+foo", input);//独占
 
     }
 
