@@ -1,11 +1,45 @@
 package com.mypack.pattern;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
     public static void main(String[] args) {
-//        String regex = "[a-zA-Z][a-zA-Z0-9_]{5,17}";
-        String regex = "[a-zA-Z]\\w{5,17}";
-        System.out.println("x12342314".matches(regex));
+        subContain();
     }
+
+    public static void subContain(){
+        String input = "123_444_555_666_789";
+        String regex = "\\d{3}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(input);
+        while (m.find()){
+            //获取匹配成功的子串
+            System.out.println(m.group());
+            //匹配成功的子串的范围是[m.start(),m.end()]
+            System.out.println(m.start());
+            System.out.println(m.end());
+        }
+
+    }
+
+    public static void singleCharPattern(){
+        //等价于[b|r|r]at、(b|c|r)at
+        String regex =  "[bcr]at";
+        System.out.println("bat".matches(regex));
+        System.out.println("cat".matches(regex));
+        System.out.println("rat".matches(regex));
+        System.out.println("hat".matches(regex));
+    }
+    public static void singleCharPattern1(){
+        //等价于[b|r|r]at、(b|c|r)at
+        String regex =  "foo[^1-5]";
+        System.out.println("foo3".matches(regex));
+        System.out.println("foo6".matches(regex));
+        System.out.println("food".matches(regex));
+    }
+
+
 
     //6~18个字符，可以使用字母、数字、下划线，需以字母开头
     public static boolean validate(String email) {
