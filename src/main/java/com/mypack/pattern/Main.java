@@ -2,19 +2,31 @@ package com.mypack.pattern;
 
 public class Main {
     public static void main(String[] args) {
-
+//        System.out.println(validate("456564"));
+//        System.out.println(validate("4565"));
+        System.out.println(validate("aa4565"));
     }
 
     //6~18个字符，可以使用字母、数字、下划线，需以字母开头
     public static boolean validate(String email) {
-        if (email == null) return false;
+        if (email == null){
+            System.out.println("不能为空");
+            return false;
+        }
         char[] chars = email.toCharArray();
-        if (chars.length < 6 || chars.length > 18) return false;
+        if (chars.length < 6 || chars.length > 18){
+            System.out.println("必须是6~18个字符");
+            return false;
+        }
         //字母开头
-        if (!isLetter(chars[0])) return false;
+        if (!isLetter(chars[0])){
+            System.out.println("必须以字母开头");
+            return false;
+        }
         for (int i = 1; i < chars.length; i++) {
             char c = chars[i];
             if(isLetter(c) || isDigit(c) || c == '_') continue;
+            System.out.println("必须以字母、数字、下划线组成");
             return false;
         }
         return true;
