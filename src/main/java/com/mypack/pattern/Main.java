@@ -5,8 +5,20 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-
     }
+
+    private static void replaceWords() {
+        String s1 = "The row we are looking for is row 8.";
+        System.out.println(s1.replace("row","line"));
+        System.out.println("---------------------");
+        System.out.println(s1.replaceAll("\\brow\\b","line"));
+        System.out.println();
+        String s2 = "Tomorrow I will wear in brown standing in row 10";
+        System.out.println(s2.replace("row","line"));
+        System.out.println("---------------------");
+        System.out.println(s2.replaceAll("\\brow\\b","line"));
+    }
+
     public static String reverse(String s){
         int length = s.length();
         String reverse = "";
