@@ -6,6 +6,17 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
+        String input = "aa12+bb34-m56j*dd78/9900";
+        //字母1字母2数字1数字2格式的最后一个数字
+        String regex = "[a-z]{2}\\d(\\d)";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(input);
+        while (m.find()) {
+            System.out.println(m.group()+"_"+m.group(1));
+        }
+    }
+
+    private static void extractedRepeatWordDigit() {
         //提取重叠字母、数字(字母字母数字数字)
         //aa11 提取出a,1
         //aa12不符合aabb不符合
