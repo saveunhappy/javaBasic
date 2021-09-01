@@ -5,6 +5,18 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
+
+    }
+    public static String reverse(String s){
+        int length = s.length();
+        String reverse = "";
+        for (int i = 0; i < length; i++) {
+            reverse = s.charAt(i) + reverse;
+        }
+        return reverse;
+    }
+
+    private static void usualMode() {
         String regex = ".";
         String input = "\r\n";
         findAll(regex,input);
