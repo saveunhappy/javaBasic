@@ -6,34 +6,43 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
-        String s1 = "aa12+bb34-m56j*dd78/9900";
-        String[] split = s1.split("\\d+");
-        System.out.println(Arrays.toString(split));
+        //提取重叠字母、数字(字母字母数字数字)
+        //aa11 提取出a,1
+        //aa12不符合aabb不符合
+        String s1 = "aa11+bb23-mj33*dd44/5566%ff77";
+        String regex = "([a-z])\\1(\\d)\\2";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(s1);
+        while (m.find()) {
+            System.out.println(m.group());
+            System.out.println("-------------");
+            System.out.println(m.group(1) + "_" + m.group(2));
+        }
     }
 
     private static void replaceDigit() {
         String s1 = "ab12c3d456efg7h89i1011jk12lmn";
         //连续的数字
-        String s2 = s1.replaceAll("\\d+","**");
+        String s2 = s1.replaceAll("\\d+", "**");
         //连续的两个数字
-        String s3 = s1.replaceAll("\\d{2}","**");
+        String s3 = s1.replaceAll("\\d{2}", "**");
         System.out.println(s2);
         System.out.println(s3);
     }
 
     private static void replaceWords() {
         String s1 = "The row we are looking for is row 8.";
-        System.out.println(s1.replace("row","line"));
+        System.out.println(s1.replace("row", "line"));
         System.out.println("---------------------");
-        System.out.println(s1.replaceAll("\\brow\\b","line"));
+        System.out.println(s1.replaceAll("\\brow\\b", "line"));
         System.out.println();
         String s2 = "Tomorrow I will wear in brown standing in row 10";
-        System.out.println(s2.replace("row","line"));
+        System.out.println(s2.replace("row", "line"));
         System.out.println("---------------------");
-        System.out.println(s2.replaceAll("\\brow\\b","line"));
+        System.out.println(s2.replaceAll("\\brow\\b", "line"));
     }
 
-    public static String reverse(String s){
+    public static String reverse(String s) {
         int length = s.length();
         String reverse = "";
         for (int i = 0; i < length; i++) {
@@ -45,13 +54,13 @@ public class Main {
     private static void usualMode() {
         String regex = ".";
         String input = "\r\n";
-        findAll(regex,input);
+        findAll(regex, input);
         System.out.println("---------------");
-        findAll(regex,input,Pattern.DOTALL);
+        findAll(regex, input, Pattern.DOTALL);
         System.out.println("---------------");
-        findAll(regex,input,Pattern.MULTILINE);
+        findAll(regex, input, Pattern.MULTILINE);
         System.out.println("---------------");
-        findAll(regex,input,Pattern.DOTALL | Pattern.MULTILINE);
+        findAll(regex, input, Pattern.DOTALL | Pattern.MULTILINE);
         System.out.println("------------------");
     }
 
