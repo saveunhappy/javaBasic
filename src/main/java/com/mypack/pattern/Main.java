@@ -1,10 +1,17 @@
 package com.mypack.pattern;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
+        String s1 = "aa12+bb34-m56j*dd78/9900";
+        String[] split = s1.split("\\d+");
+        System.out.println(Arrays.toString(split));
+    }
+
+    private static void replaceDigit() {
         String s1 = "ab12c3d456efg7h89i1011jk12lmn";
         //连续的数字
         String s2 = s1.replaceAll("\\d+","**");
