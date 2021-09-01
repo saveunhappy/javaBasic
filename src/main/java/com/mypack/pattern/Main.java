@@ -5,6 +5,52 @@ import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
+        String regex = ".";
+        String input = "\r\n";
+        findAll(regex,input);
+        System.out.println("---------------");
+        findAll(regex,input,Pattern.DOTALL);
+        System.out.println("---------------");
+        findAll(regex,input,Pattern.MULTILINE);
+        System.out.println("---------------");
+        findAll(regex,input,Pattern.DOTALL | Pattern.MULTILINE);
+        System.out.println("------------------");
+    }
+
+    private static void capturingGroupReverse() {
+        /**
+         * 括号里面说明要出现两个连续的数字，后面的1就是要取第几个捕获组，第一个的结果是12，那么后面引用的
+         * 第一个捕获组就得是12，就是里面的内容都得一样了，否则就是(\\d\\d){2}这样了
+         */
+        String regex = "(\\d\\d)\\1";
+        System.out.println("1212".matches(regex));
+        System.out.println("1234".matches(regex));
+        String regex1 = "([a-z]{2})([A-Z]{2})\\2\\1";
+
+        System.out.println("mjPKPKmj".matches(regex1));
+        System.out.println("mjPKmjPK".matches(regex1));
+    }
+
+
+    private static void capturingGroup() {
+        String regex1 = "dog{3}";
+        //do是前面一定要有的，g和{3}相匹配，出现三次。
+        System.out.println("doggg".matches(regex1));
+        String regex2 = "[dog]{3}";
+        System.out.println("ddd".matches(regex2));
+        System.out.println("ooo".matches(regex2));
+        System.out.println("ggg".matches(regex2));
+        System.out.println("dog".matches(regex2));
+        System.out.println("gog".matches(regex2));
+        System.out.println("gdo".matches(regex2));
+        //用了小括号就要求必须完全匹配
+        String regex3 = "(dog){3}";
+        System.out.println("dogdogdog".matches(regex3));
+        System.out.println("ddddddddd".matches(regex3));
+
+    }
+
+    private static void regexPattern() {
         String input = "afooaaaaaafooa";
         /**
          * 贪婪就是直接把所有的吞进去，然后找到最长的，就匹配一次
@@ -20,7 +66,6 @@ public class Main {
          *
          */
         findAll(".*+foo", input);//独占
-
     }
 
     public static void findAll(String regex, String input) {
