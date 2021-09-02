@@ -14,6 +14,17 @@ public class Main {
         while (m.find()) {
             System.out.println(m.group()+"_"+m.group(1));
         }
+        int a = 1;
+        int b = 2;
+    }
+
+    public static void test(int a, int b){
+        if(a == b){
+            extractedRepeatWordDigit();
+        }else{
+            // comment
+        }
+
     }
 
     private static void extractedRepeatWordDigit() {
