@@ -39,8 +39,8 @@ public class Files {
         if (!src.exists() || dest.exists()) return;
         mkparents(dest);
         //inputStream和outputStream配合使用这个。
-        try (FileInputStream fis = new FileInputStream(src);
-             FileOutputStream fos = new FileOutputStream(dest)) {
+        try (InputStream fis = new BufferedInputStream(new FileInputStream(src));
+             OutputStream fos = new BufferedOutputStream(new FileOutputStream(dest))) {
             byte[] bytes = new byte[8192];
             int len;
             while ((len = fis.read(bytes))!=-1){
@@ -74,7 +74,7 @@ public class Files {
         if (bytes == null || file == null) return;
         if (file.exists()) return;
         mkparents(file);
-        try (FileOutputStream fos = new FileOutputStream(file)) {
+        try (OutputStream fos = new BufferedOutputStream(new FileOutputStream(file))) {
             fos.write(bytes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class Files {
     public static byte[] read(File file) {
         if (file == null || !file.exists()) return null;
         if (file.isDirectory()) return null;
-        try (FileInputStream fis = new FileInputStream(file)) {
+        try (InputStream fis = new BufferedInputStream(new FileInputStream(file))) {
             byte[] bytes = new byte[(int) file.length()];
             fis.read(bytes);
             return bytes;

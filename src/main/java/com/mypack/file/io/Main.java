@@ -10,10 +10,42 @@ public class Main {
 //        byte[] bytes = Files.read(new File("E:/a/b/1.txt"));
 //        System.out.println(new String(bytes));
 //        Files.copy(new File("E:/a/b/1.txt"),new File("E:/ab/ab/30.txt"));
+//        BufferedWriter writer = new BufferedWriter(new FileWriter("E:/1.txt"));
+//        writer.write("123");
+//        writer.flush();
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new FileInputStream("E:/gbk.txt"), "GBK"));
+             BufferedWriter writer = new BufferedWriter(
+                     new OutputStreamWriter(new FileOutputStream("E:/utf-8.txt"), "UTF-8"));
+        ) {
+            char[] chars = new char[8192];
+            int len;
+            while ((len = reader.read(chars)) != -1){
+                writer.write(chars,0,len);
+            }
+
+//            String line;
+//            while ((line = reader.readLine())!=null){
+//                writer.write(line);
+//                writer.newLine();
+//            }
+        }
+    }
+
+    private static void BuferReaderTest() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("E:/a/b/s.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        }
+    }
+
+    private static void FileReaderTest() throws IOException, InterruptedException {
         try (FileReader reader = new FileReader(new File("E:/a/b/s.txt"))) {
             int c;
             while ((c = reader.read()) != -1) {
-                System.out.print((char)c);
+                System.out.print((char) c);
                 Thread.sleep(10);
             }
         }
