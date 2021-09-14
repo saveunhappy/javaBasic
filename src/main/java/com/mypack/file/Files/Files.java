@@ -21,8 +21,9 @@ public class Files {
             delete(sf);
         }
     }
+
     public static void move(String src, String dest) {
-        move(new File(src),new File(dest));
+        move(new File(src), new File(dest));
     }
 
     public static void move(File src, File dest) {
@@ -31,6 +32,25 @@ public class Files {
         //如果复制的
         mkparents(dest);
         src.renameTo(dest);
+    }
+
+    public static void copy(File src, File dest) {
+        if (src == null || dest == null) return;
+        if (!src.exists() || dest.exists()) return;
+        mkparents(dest);
+        //inputStream和outputStream配合使用这个。
+        try (FileInputStream fis = new FileInputStream(src);
+             FileOutputStream fos = new FileOutputStream(dest)) {
+            byte[] bytes = new byte[8192];
+            int len;
+            while ((len = fis.read(bytes))!=-1){
+                fos.write(bytes,0,len);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void mkparents(File dest) {
@@ -61,11 +81,11 @@ public class Files {
         }
     }
 
-    public static byte[] read(File file){
-        if(file == null || !file.exists())return null;
-        if(file.isDirectory())return null;
+    public static byte[] read(File file) {
+        if (file == null || !file.exists()) return null;
+        if (file.isDirectory()) return null;
         try (FileInputStream fis = new FileInputStream(file)) {
-            byte[] bytes = new byte[(int)file.length()];
+            byte[] bytes = new byte[(int) file.length()];
             fis.read(bytes);
             return bytes;
         } catch (IOException e) {

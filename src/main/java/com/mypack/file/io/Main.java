@@ -10,8 +10,9 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws Exception {
 //        Files.write("231234哈哈哈".getBytes(),new File("E:/a/b/1.txt"));
-        byte[] bytes = Files.read(new File("E:/a/b/1.txt"));
-        System.out.println(new String(bytes));
+//        byte[] bytes = Files.read(new File("E:/a/b/1.txt"));
+//        System.out.println(new String(bytes));
+        Files.copy(new File("E:/a/b/1.txt"),new File("E:/ab/ab/30.txt"));
     }
 
     private static void testFileInput() throws IOException {
