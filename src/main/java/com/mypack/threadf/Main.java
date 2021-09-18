@@ -2,6 +2,33 @@ package com.mypack.threadf;
 
 public class Main {
     public static void main(String[] args) {
+        Threadjoin();
+    }
+
+    private static void Threadjoin() {
+        /**
+         * 有了join之后，可以理解为，可惜顺序执行了，就是得等前一个运行完才能去执行下面的
+         * 如果指定了时间，那么就可以等指定的时间
+         */
+        Thread thread = new Thread(() -> {
+            System.out.println(1);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(2);
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(3);
+    }
+
+    private static void concurrencyRun() {
         /**
          * 不要想着顺序执行，1 2 3 了，执行了打印1，睡了，然后新的线程启动了
          * 睡了1秒，打印了3，然后1线程醒了，睡够3秒了，打印了2
