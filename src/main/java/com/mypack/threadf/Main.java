@@ -2,7 +2,48 @@ package com.mypack.threadf;
 
 public class Main {
     public static void main(String[] args) {
-        Threadjoin();
+        Person jack = new Person("jack");
+        Person rose = new Person("rose");
+        new Thread(()-> jack.hello(rose)).start();
+        new Thread(()-> rose.hello(jack)).start();
+    }
+
+    private static void deadLock() {
+        new Thread(()->{
+           synchronized ("1"){
+               System.out.println("1 - 1");
+               try {
+                   Thread.sleep(100);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+               synchronized ("2"){
+                   System.out.println("1 - 2");
+               }
+           }
+        }).start();
+        new Thread(()->{
+            synchronized ("2"){
+                System.out.println("2 - 1");
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized ("1"){
+                    System.out.println("2 - 2");
+                }
+            }
+        }).start();
+    }
+
+    private static void ThreadSafe() {
+        Station station = new Station();
+        for (int i = 0; i < 4; i++) {
+            Thread thread = new Thread(station);
+            thread.setName(""+i);
+            thread.start();
+        }
     }
 
     private static void Threadjoin() {
