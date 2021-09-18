@@ -1,7 +1,61 @@
 package com.mypack.threadf;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        nolock3();
+
+    }
+
+    /**
+     * 为什么lockRunner在前在后还不一样？因为你运行的话，默认是在主线程里面吧。
+     * 然后是顺序执行的吧，如果是nolock3,主线程执行，没有竞争资源，所以还是顺序执行
+     * 就不会造成死锁
+     * 如果lock3那样，因为主线程创建之后，用一个新的线程去执行了，然后，就开始并发了，
+     * 可以把new Thread的那个和主线程调用lock同时执行，都在等对方的锁，所以死锁了
+     * @throws InterruptedException
+     */
+    private static void nolock3() throws InterruptedException {
+        Object lockA = new Object();
+        Object lockB = new Object();
+        LockRunner lockRunner = new LockRunner();
+        lockRunner.lock(lockB,lockA);
+
+        new Thread(()->{
+            try {
+                lockRunner.lock(lockA,lockB);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private static void lock3() throws InterruptedException {
+        Object lockA = new Object();
+        Object lockB = new Object();
+        LockRunner lockRunner = new LockRunner();
+
+        new Thread(()->{
+            try {
+                lockRunner.lock(lockA,lockB);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        lockRunner.lock(lockB,lockA);
+    }
+
+    static class LockRunner{
+        public void lock(Object owner,Object target) throws InterruptedException{
+            synchronized (owner){
+                Thread.sleep(1000);
+                synchronized (target){
+                    System.out.println("success");
+                }
+            }
+        }
+    }
+
+    private static void deadLock2() {
         Person jack = new Person("jack");
         Person rose = new Person("rose");
         new Thread(()-> jack.hello(rose)).start();
