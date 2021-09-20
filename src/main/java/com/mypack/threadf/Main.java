@@ -2,8 +2,9 @@ package com.mypack.threadf;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        nolock3();
-
+        Drop drop = new Drop();
+        (new Thread(new Consumer(drop))).start();
+        (new Thread(new Producer(drop))).start();
     }
 
     /**
