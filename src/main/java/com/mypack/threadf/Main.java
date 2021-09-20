@@ -2,6 +2,15 @@ package com.mypack.threadf;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        Station station = new Station();
+        for (int i = 0; i < 4; i++) {
+            Thread thread = new Thread(station);
+            thread.setName(""+i);
+            thread.start();
+        }
+    }
+
+    private static void ConsumerProducer() {
         Drop drop = new Drop();
         (new Thread(new Consumer(drop))).start();
         (new Thread(new Producer(drop))).start();
@@ -92,7 +101,7 @@ public class Main {
         }).start();
     }
 
-    private static void ThreadSafe() {
+    private static void StationTest() {
         Station station = new Station();
         for (int i = 0; i < 4; i++) {
             Thread thread = new Thread(station);
