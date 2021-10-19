@@ -1,13 +1,46 @@
 package com.mypack.threadf;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Station station = new Station();
-        for (int i = 0; i < 4; i++) {
-            Thread thread = new Thread(station);
-            thread.setName(""+i);
-            thread.start();
-        }
+        /**
+         * 注意，线程池要关闭，而且，new Thread是创建完，运行完之后就销毁了，叫普通线程
+         * 这个线程池创建的线程叫做工作线程，注意关闭
+         */
+        ExecutorService pool = Executors.newFixedThreadPool(5);
+        pool.execute(
+            () -> {
+            // ... do something inside runnable task
+                System.out.println(Thread.currentThread());
+        });
+        pool.execute(
+                () -> {
+                    // ... do something inside runnable task
+                    System.out.println(Thread.currentThread());
+                });
+        pool.execute(
+                () -> {
+                    // ... do something inside runnable task
+                    System.out.println(Thread.currentThread());
+                });
+        pool.execute(
+                () -> {
+                    // ... do something inside runnable task
+                    System.out.println(Thread.currentThread());
+                });
+        pool.execute(
+                () -> {
+                    // ... do something inside runnable task
+                    System.out.println(Thread.currentThread());
+                });
+        pool.execute(
+                () -> {
+                    // ... do something inside runnable task
+                    System.out.println(Thread.currentThread());
+                });
+        pool.shutdown();
     }
 
     private static void ConsumerProducer() {
