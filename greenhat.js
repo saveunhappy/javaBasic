@@ -46,7 +46,7 @@ function main() {
 		}, next)
 	}, function () {
 		console.log('done');
-		exec("git rm realwork.txt; git commit -m 'delete'; git push;" , handleOutput);
+		exec("git rm --cached realwork.txt&& git commit -m 'delete'&& git push" , handleOutput);
 	});
 }
 
